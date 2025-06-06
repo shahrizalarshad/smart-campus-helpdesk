@@ -20,4 +20,4 @@ jobs:
           action: "upload"
           app_location: "/"                     # Your index.html is in the root
           api_location: "api"                   # If you have Azure Functions
-          output_location: "/"                  # Not needed if no build step
+          output_location: ""                  # Not needed if no build step
