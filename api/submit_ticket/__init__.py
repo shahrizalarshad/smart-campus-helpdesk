@@ -4,8 +4,8 @@ import os
 import uuid
 import logging  # Add this
 from azure.cosmos import CosmosClient
-# from azure.identity import DefaultAzureCredential
-from azure.identity import ManagedIdentityCredential
+from azure.identity import DefaultAzureCredential
+# from azure.identity import ManagedIdentityCredential
 from azure.keyvault.secrets import SecretClient 
 from azure.storage.blob import BlobServiceClient
 
@@ -15,7 +15,7 @@ def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
     try:
         # Setup Keyvault access 
         vault_url = "https://securevaultquickaid.vault.azure.net/"
-        credential = ManagedIdentityCredential()
+        credential = DefaultIdentityCredential()
         secret_client = SecretClient(vault_url=vault_url, credential=credential)
 
         # Get secrets
@@ -35,6 +35,8 @@ def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
         # Get JSON body
         data = req.get_json()
         logging.info(f"Request data: {data}")
+
+        
 
         # Create ticket object
         ticket = {
