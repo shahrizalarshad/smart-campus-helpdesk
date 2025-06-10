@@ -15,7 +15,7 @@ def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
     try:
         # Setup Keyvault access 
         vault_url = "https://securevaultquickaid.vault.azure.net/"
-        credential = DefaultIdentityCredential()
+        credential = DefaultAzureCredential()
         secret_client = SecretClient(vault_url=vault_url, credential=credential)
 
         # Get secrets
@@ -26,7 +26,7 @@ def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
 
         # Upload dummy file to blob storage
         blob_service_client = BlobServiceClient.from_connection_string(storage_credentials)
-        container_name = "Tickets"
+        container_name = "tickets"
         blob_name = f"ticket-{uuid.uuid4()}.txt"
         blob_content = "This is a sample uploaded ticket file."
         blob_client = blob_service_client.get_blob_client(container=container_name, blob=blob_name)
@@ -37,7 +37,6 @@ def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
         logging.info(f"Request data: {data}")
 
         
-
         # Create ticket object
         ticket = {
             "id": str(uuid.uuid4()),
