@@ -18,17 +18,11 @@
       "routePrefix": "api",
       "maxOutstandingRequests": 200,
       "maxConcurrentRequests": 100,
-       "customHeaders": {
+      "customHeaders": {
         "Access-Control-Allow-Origin": "http://localhost"
       }
-    },
-    "timers": {
-      "scheduleMonitor": {
-        "enabled": true,
-        "interval": "00:05:00",
-        "runOnStartup": false
-      }
     }
-  },
+    },
+  
   "functionTimeout": "00:05:00"
 }

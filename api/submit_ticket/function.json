@@ -13,6 +13,12 @@
       "type": "http",
       "direction": "out",
       "name": "$return"
+    },
+    {
+      "name": "myTimer",
+      "type": "timerTrigger",
+      "direction": "in",
+      "schedule": "0 */5 * * * *"
     }
   ],
   "scriptFile": "__init__.py"
