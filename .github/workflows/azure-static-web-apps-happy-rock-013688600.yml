@@ -28,6 +28,18 @@ jobs:
       - name: Upgrade pip
         run: python -m pip install --upgrade pip
 
+      - name: List files for debugging
+        run: |
+          echo "In root directory:"
+          ls -lah
+          echo "In api directory:"
+          ls -lah api
+
+      - name: Install Python dependencies
+        run: |
+          cd api
+          pip install -r requirements.txt
+
       - name: Install Python dependencies
         run: |
           cd api
