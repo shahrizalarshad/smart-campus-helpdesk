@@ -39,10 +39,10 @@ jobs:
         working-directory: ./api
         run: pip install -r requirements.txt
 
-      # - name: 'Login via Azure CLI'
-      #   uses: azure/login@v1
-      #   with:
-      #     creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: 'Login via Azure CLI'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Install Azure Functions Core Tools
         run: |
