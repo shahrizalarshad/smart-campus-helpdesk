@@ -208,7 +208,7 @@
     </div>
 
     <!-- JavaScript Section -->
-    <script src="config.js"></script>
+    <!-- <script src="config.js"></script> -->
     <script>
       console.log("=== Function script loaded ===");
       document.getElementById("ticketForm").onsubmit = async (e) => {
@@ -231,7 +231,7 @@
         };
 
         try {
-          const response = await fetch(`${API_URL}/api/submit_ticket`, {
+          const response = await fetch('https://funclogichelpdesk01.azurewebsites.net/api/submit_ticket', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(ticket),

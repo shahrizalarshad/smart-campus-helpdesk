@@ -10,7 +10,8 @@ from azure.keyvault.secrets import SecretClient
 from azure.storage.blob import BlobServiceClient
 import traceback
 
-def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
+# def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
+def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info("submit_ticket function triggered.")
 
     try:
