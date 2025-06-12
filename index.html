@@ -231,7 +231,7 @@
         };
 
         try {
-          const response = await fetch('https://funclogichelpdesk01.azurewebsites.net/api/submit_ticket', {
+          const response = await fetch("https://funclogichelpdesk01.azurewebsites.net/api/submit_ticket", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(ticket),
