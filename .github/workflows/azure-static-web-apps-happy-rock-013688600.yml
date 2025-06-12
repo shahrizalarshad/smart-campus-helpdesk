@@ -39,14 +39,21 @@ jobs:
         working-directory: ./api
         run: pip install -r requirements.txt
 
+      - name: 'Login via Azure CLI'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: Install Azure Functions Core Tools
         run: |
-          npm install -g azure-functions-core-tools@4 --unsafe-perm true
+         npm install -g azure-functions-core-tools@4 --unsafe-perm true
 
       - name: Publish to Azure Function App
         run: |
           func azure functionapp publish funclogichelpdesk01 --python
         working-directory: ./api
+
+       
 
       - name: Build And Deploy
         id: builddeploy
