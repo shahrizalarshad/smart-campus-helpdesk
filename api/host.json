@@ -19,7 +19,7 @@
       "maxOutstandingRequests": 200,
       "maxConcurrentRequests": 100,
       "customHeaders": {
-        "Access-Control-Allow-Origin": "http://localhost"
+        "Access-Control-Allow-Origin": "*"
       }
     }
     },

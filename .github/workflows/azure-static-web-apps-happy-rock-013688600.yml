@@ -41,7 +41,7 @@ jobs:
 
       - name: Publish to Azure Function App
         run: |
-          func azure functionapp publish funclogichelpdesk01 --python
+          func azure functionapp publish funclogichelpdesk01 --python 
         working-directory: ./api
 
       - name: Build And Deploy
