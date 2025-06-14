@@ -9,6 +9,8 @@ from azure.identity import DefaultAzureCredential
 from azure.keyvault.secrets import SecretClient 
 from azure.storage.blob import BlobServiceClient
 import traceback
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
 # def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
 def main(req: func.HttpRequest) -> func.HttpResponse:
@@ -68,10 +70,37 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         container = db.get_container_client("Tickets")
         container.create_item(body=ticket)
 
+        message = Mail (
+            from_email='kojita7073@baxima.com',
+            to_emails=email,
+            subject='Your ticket has been received',
+           html_content=f"""
+                <p>Hello,</p>
+                <p>Thank you for contacting QuickAid. Your ticket has been received with the following details:</p>
+                <ul>
+                    <li><strong>Ticket ID:</strong> {ticket['id']}</li>
+                    <li><strong>Title:</strong> {ticket['title']}</li>
+                    <li><strong>Category:</strong> {ticket['category']}</li>
+                    <li><strong>Description:</strong> {ticket['description']}</li>
+                </ul>
+                <p>We will get back to you shortly.</p>
+                <p>Regards,<br>QuickAid Support Team</p>
+            """
+
+            )
+        
+        try:
+            sg = SendGridAPIClient(sendgrid_key)
+            sg.send(message)
+            logging.info("✅ Email successfully sent.")
+        except Exception as email_error:
+            logging.error(f"❌ Failed to send email: {str(email_error)}")
+                
+                
         return func.HttpResponse(json.dumps({
-            "message": "Ticket submitted",
-            "id": ticket["id"]
-        }), status_code=200, mimetype="application/json")
+                "message": "Ticket submitted",
+                "id": ticket["id"]
+            }), status_code=200, mimetype="application/json")
 
     except Exception as e:
          logging.error("❌ An exception occurred during function execution:")
