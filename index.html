@@ -1,4 +1,3 @@
-
 <!-- Trigger redeploy -->
 <!DOCTYPE html>
 <html lang="en">
@@ -64,11 +63,13 @@
     <!-- Main Content -->
     <main class="main">
       <div class="container">
-        <div class="form-section">
+        <!-- Submit Ticket Section -->
+        <div class="form-section" id="submit-section">
           <div class="form-header">
             <h2 class="form-title">Submit Support Ticket</h2>
             <p class="form-description">
-              Fill out the form below and our support team will get back to you shortly.
+              Fill out the form below and our support team will get back to you
+              shortly.
             </p>
           </div>
 
@@ -134,18 +135,186 @@
 
               <button type="submit" class="submit-btn" id="submitBtn">
                 <span class="btn-text">Submit Ticket</span>
-                <span class="btn-loader" style="display: none;">
+                <span class="btn-loader" style="display: none">
                   <i class="fas fa-spinner fa-spin"></i> Processing...
                 </span>
               </button>
             </form>
           </div>
         </div>
+
+        <!-- Check Status Section -->
+        <div class="form-section" id="status-section" style="display: none">
+          <div class="form-header">
+            <h2 class="form-title">Check Ticket Status</h2>
+            <p class="form-description">
+              Enter your ticket ID to view your support ticket status and
+              details.
+            </p>
+          </div>
+
+          <div class="form-container">
+            <form id="statusForm" class="ticket-form">
+              <div class="form-group">
+                <label for="statusTicketId" class="form-label">
+                  <i class="fas fa-ticket-alt"></i> Ticket ID
+                </label>
+                <input
+                  type="text"
+                  id="statusTicketId"
+                  class="form-input"
+                  placeholder="Enter your ticket ID (e.g., e06cf026-4c58-4f13-bf56-7606235070cb)"
+                  required
+                />
+                <div class="input-border"></div>
+              </div>
+
+              <button type="submit" class="submit-btn" id="statusBtn">
+                <span class="btn-text">Check Status</span>
+                <span class="btn-loader" style="display: none">
+                  <i class="fas fa-spinner fa-spin"></i> Loading...
+                </span>
+              </button>
+            </form>
+
+            <!-- Ticket Display -->
+            <div
+              id="ticketContainer"
+              class="ticket-container"
+              style="display: none"
+            >
+              <h3 class="ticket-title">Ticket Details</h3>
+              <div id="ticketDetails" class="ticket-details"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Help Section -->
+        <div class="help-section" id="help-section" style="display: none">
+          <div class="form-header">
+            <h2 class="form-title">Help & FAQ</h2>
+            <p class="form-description">
+              Find answers to common questions and get help with using our
+              support system.
+            </p>
+          </div>
+
+          <div class="help-content">
+            <!-- FAQ Section -->
+            <div class="faq-section">
+              <h3 class="section-title">Frequently Asked Questions</h3>
+              <div class="faq-container">
+                <div class="faq-item">
+                  <div class="faq-question">
+                    <i class="fas fa-question-circle"></i>
+                    <span>How do I submit a support ticket?</span>
+                    <i class="fas fa-chevron-down faq-arrow"></i>
+                  </div>
+                  <div class="faq-answer">
+                    <p>
+                      To submit a support ticket, navigate to the "Submit
+                      Ticket" section, fill out all required fields including
+                      your email, issue title, category, and detailed
+                      description, then click "Submit Ticket".
+                    </p>
+                  </div>
+                </div>
+
+                <div class="faq-item">
+                  <div class="faq-question">
+                    <i class="fas fa-question-circle"></i>
+                    <span>How can I check my ticket status?</span>
+                    <i class="fas fa-chevron-down faq-arrow"></i>
+                  </div>
+                  <div class="faq-answer">
+                    <p>
+                      Go to the "Check Status" section and enter your ticket ID.
+                      You'll see the ticket status and details.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="faq-item">
+                  <div class="faq-question">
+                    <i class="fas fa-question-circle"></i>
+                    <span>What information should I include in my ticket?</span>
+                    <i class="fas fa-chevron-down faq-arrow"></i>
+                  </div>
+                  <div class="faq-answer">
+                    <p>
+                      Include as much detail as possible: what you were trying
+                      to do, what happened instead, any error messages, your
+                      operating system, and steps to reproduce the issue.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="faq-item">
+                  <div class="faq-question">
+                    <i class="fas fa-question-circle"></i>
+                    <span>How long does it take to get a response?</span>
+                    <i class="fas fa-chevron-down faq-arrow"></i>
+                  </div>
+                  <div class="faq-answer">
+                    <p>
+                      Our team typically responds within 2 hours during business
+                      hours. Critical issues are prioritized and may receive
+                      faster responses.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="faq-item">
+                  <div class="faq-question">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Can I update my ticket after submission?</span>
+                    <i class="fas fa-chevron-down faq-arrow"></i>
+                  </div>
+                  <div class="faq-answer">
+                    <p>
+                      Currently, you cannot directly update tickets through this
+                      portal. If you need to add information, please submit a
+                      new ticket referencing your original ticket ID.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="contact-section">
+              <h3 class="section-title">Contact Information</h3>
+              <div class="contact-info">
+                <div class="contact-item">
+                  <i class="fas fa-envelope"></i>
+                  <div>
+                    <strong>Email Support</strong>
+                    <p>support@campus.edu</p>
+                  </div>
+                </div>
+                <div class="contact-item">
+                  <i class="fas fa-phone"></i>
+                  <div>
+                    <strong>Phone Support</strong>
+                    <p>(555) 123-4567</p>
+                  </div>
+                </div>
+                <div class="contact-item">
+                  <i class="fas fa-clock"></i>
+                  <div>
+                    <strong>Business Hours</strong>
+                    <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
 
     <!-- Features Section -->
-    <section class="features" id="help">
+    <section class="features">
       <div class="container">
         <div class="features-grid">
           <div class="feature-card">
@@ -174,7 +343,7 @@
     </section>
 
     <!-- Success Modal -->
-    <div id="successModal" class="modal" style="display: none;">
+    <div id="successModal" class="modal" style="display: none">
       <div class="modal-content">
         <div class="modal-header">
           <i class="fas fa-check-circle success-icon"></i>
@@ -193,7 +362,7 @@
     </div>
 
     <!-- Error Modal -->
-    <div id="errorModal" class="modal" style="display: none;">
+    <div id="errorModal" class="modal" style="display: none">
       <div class="modal-content">
         <div class="modal-header">
           <i class="fas fa-exclamation-triangle error-icon"></i>
@@ -203,7 +372,9 @@
           We encountered an issue while submitting your ticket. Please try
           again.
         </p>
-        <button class="modal-btn error-btn" onclick="closeModal()">Try Again</button>
+        <button class="modal-btn error-btn" onclick="closeModal()">
+          Try Again
+        </button>
       </div>
     </div>
 
@@ -213,6 +384,8 @@
       console.log("=== Function script loaded ===");
       document.getElementById("ticketForm").onsubmit = async (e) => {
         e.preventDefault();
+
+        console.log("=== Ticket submission started ===");
 
         const submitBtn = document.getElementById("submitBtn");
         const btnText = submitBtn.querySelector(".btn-text");
@@ -230,20 +403,45 @@
           description: document.getElementById("description").value.trim(),
         };
 
-        try {
-          const response = await fetch("https://funclogichelpdesk01.azurewebsites.net/api/submit_ticket", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(ticket),
-          });
+        console.log("Ticket data:", ticket);
+        console.log(
+          "API endpoint:",
+          "https://funclogichelpdesk01.azurewebsites.net/api/submit_ticket"
+        );
 
-          if (!response.ok) throw new Error("Failed to submit ticket.");
+        try {
+          const response = await fetch(
+            "https://funclogichelpdesk01.azurewebsites.net/api/submit_ticket",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+              },
+              body: JSON.stringify(ticket),
+            }
+          );
+
+          console.log("Response status:", response.status);
+          console.log("Response headers:", response.headers);
+
+          if (!response.ok) {
+            const errorText = await response.text();
+            console.error("Response error:", errorText);
+            throw new Error(
+              `Failed to submit ticket. Status: ${response.status}`
+            );
+          }
 
           const result = await response.json();
+          console.log("Success result:", result);
+
           document.getElementById("ticketId").textContent = result.id || "N/A";
           document.getElementById("successModal").style.display = "flex";
           document.getElementById("ticketForm").reset();
         } catch (error) {
+          console.error("Submission error:", error);
+          console.error("Error details:", error.message);
           document.getElementById("errorModal").style.display = "flex";
         } finally {
           submitBtn.classList.remove("loading");
@@ -278,16 +476,188 @@
         });
       });
 
+      // Navigation functionality
       document.querySelectorAll(".nav-link").forEach((link) => {
         link.addEventListener("click", function (e) {
           e.preventDefault();
-          document.querySelectorAll(".nav-link").forEach((el) => el.classList.remove("active"));
+          document
+            .querySelectorAll(".nav-link")
+            .forEach((el) => el.classList.remove("active"));
           this.classList.add("active");
-          const target = document.querySelector(this.getAttribute("href"));
-          if (target) {
-            target.scrollIntoView({ behavior: "smooth" });
+
+          // Hide all sections
+          document.getElementById("submit-section").style.display = "none";
+          document.getElementById("status-section").style.display = "none";
+          document.getElementById("help-section").style.display = "none";
+
+          // Show selected section
+          const target = this.getAttribute("href").substring(1);
+          if (target === "home") {
+            document.getElementById("submit-section").style.display = "block";
+          } else if (target === "status") {
+            document.getElementById("status-section").style.display = "block";
+          } else if (target === "help") {
+            document.getElementById("help-section").style.display = "block";
           }
         });
+      });
+
+      // Check status functionality
+      document.getElementById("statusForm").onsubmit = async (e) => {
+        e.preventDefault();
+
+        const statusBtn = document.getElementById("statusBtn");
+        const btnText = statusBtn.querySelector(".btn-text");
+        const btnLoader = statusBtn.querySelector(".btn-loader");
+        const ticketContainer = document.getElementById("ticketContainer");
+        const ticketDetails = document.getElementById("ticketDetails");
+
+        statusBtn.classList.add("loading");
+        btnText.style.display = "none";
+        btnLoader.style.display = "flex";
+        statusBtn.disabled = true;
+
+        const ticketId = document.getElementById("statusTicketId").value.trim();
+
+        try {
+          const response = await fetch(
+            `https://funclogichelpdesk01.azurewebsites.net/api/get_tickets?id=${encodeURIComponent(
+              ticketId
+            )}`
+          );
+
+          if (!response.ok) throw new Error("Failed to fetch ticket.");
+
+          const tickets = await response.json();
+
+          if (tickets.length === 0) {
+            ticketDetails.innerHTML = `
+              <div class="no-ticket">
+                <i class="fas fa-search"></i>
+                <h4>Ticket Not Found</h4>
+                <p>No ticket found with the provided ID. Please check your ticket ID and try again.</p>
+              </div>
+            `;
+          } else {
+            const ticket = tickets[0]; // Get the first (and only) ticket
+            const statusClass = getStatusClass(ticket.status || "Open");
+            const categoryIcon = getCategoryIcon(ticket.category || "Other");
+            const createdDate = new Date(
+              ticket.timestamp || ticket.created_at || Date.now()
+            ).toLocaleDateString();
+
+            ticketDetails.innerHTML = `
+              <div class="ticket-card single-ticket">
+                <div class="ticket-header">
+                  <div class="ticket-id">
+                    <i class="fas fa-ticket-alt"></i>
+                    <span>Ticket #${ticket.id || "N/A"}</span>
+                  </div>
+                  <div class="ticket-status ${statusClass}">
+                    ${ticket.status || "Open"}
+                  </div>
+                </div>
+                <div class="ticket-content">
+                  <h4 class="ticket-title">
+                    ${categoryIcon} ${ticket.title || "No title"}
+                  </h4>
+                  <p class="ticket-description">
+                    ${ticket.description || "No description"}
+                  </p>
+                  <div class="ticket-meta">
+                    <span class="ticket-category">
+                      <i class="fas fa-folder"></i> ${
+                        ticket.category || "Uncategorized"
+                      }
+                    </span>
+                    <span class="ticket-date">
+                      <i class="fas fa-calendar"></i> ${createdDate}
+                    </span>
+                    ${
+                      ticket.relative_time
+                        ? `
+                      <span class="ticket-time">
+                        <i class="fas fa-clock"></i> ${ticket.relative_time}
+                      </span>
+                    `
+                        : ""
+                    }
+                  </div>
+                </div>
+              </div>
+            `;
+          }
+
+          ticketContainer.style.display = "block";
+        } catch (error) {
+          ticketDetails.innerHTML = `
+            <div class="error-message">
+              <i class="fas fa-exclamation-triangle"></i>
+              <h4>Error Loading Ticket</h4>
+              <p>Unable to load ticket. Please verify the ticket ID and try again.</p>
+            </div>
+          `;
+          ticketContainer.style.display = "block";
+        } finally {
+          statusBtn.classList.remove("loading");
+          btnText.style.display = "inline";
+          btnLoader.style.display = "none";
+          statusBtn.disabled = false;
+        }
+      };
+
+      // Get status class for styling
+      function getStatusClass(status) {
+        switch (status.toLowerCase()) {
+          case "open":
+          case "new":
+            return "status-open";
+          case "in progress":
+          case "processing":
+            return "status-progress";
+          case "resolved":
+          case "closed":
+            return "status-resolved";
+          default:
+            return "status-open";
+        }
+      }
+
+      // Get category icon
+      function getCategoryIcon(category) {
+        switch (category.toLowerCase()) {
+          case "hardware":
+            return "🖥️";
+          case "software":
+            return "💻";
+          case "network":
+            return "🌐";
+          case "account":
+            return "👤";
+          case "email":
+            return "📧";
+          default:
+            return "🔧";
+        }
+      }
+
+      // FAQ toggle functionality
+      document.addEventListener("click", function (e) {
+        if (e.target.closest(".faq-question")) {
+          const faqItem = e.target.closest(".faq-item");
+          const faqAnswer = faqItem.querySelector(".faq-answer");
+          const faqArrow = faqItem.querySelector(".faq-arrow");
+
+          faqItem.classList.toggle("active");
+
+          if (faqItem.classList.contains("active")) {
+            faqAnswer.style.maxHeight = faqAnswer.scrollHeight + "px";
+            faqArrow.style.transform = "rotate(180deg)";
+          } else {
+            faqAnswer.style.maxHeight = "0";
+            faqArrow.style.transform = "rotate(0deg)";
+          }
+        }
       });
 
       window.addEventListener("click", function (e) {

@@ -12,9 +12,24 @@ import traceback
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
-# def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info("submit_ticket function triggered.")
+
+    # Set CORS headers
+    headers = {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Content-Type": "application/json"
+    }
+    
+    # Handle preflight requests
+    if req.method == "OPTIONS":
+        return func.HttpResponse(
+            "",
+            status_code=200,
+            headers=headers
+        )
 
     try:
         # Parse request JSON body first
@@ -23,7 +38,12 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             logging.info(f"Request data received: {data}")
         except Exception as json_error:
             logging.error(f"Failed to parse JSON body: {json_error}")
-            return func.HttpResponse("Invalid JSON format in request body.", status_code=400)
+            return func.HttpResponse(
+                json.dumps({"error": "Invalid JSON format in request body"}),
+                status_code=400,
+                headers=headers,
+                mimetype="application/json"
+            )
 
         # Get fields from request body
         email = data.get("email")
@@ -33,7 +53,12 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
         if not all([email, title, category, description]):
             logging.warning("Missing one or more required fields.")
-            return func.HttpResponse("Missing required fields in the request.", status_code=400)
+            return func.HttpResponse(
+                json.dumps({"error": "Missing required fields in the request"}),
+                status_code=400,
+                headers=headers,
+                mimetype="application/json"
+            )
 
         # Access Key Vault
         vault_url = "https://securevaultquickaid.vault.azure.net/"
@@ -54,14 +79,15 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         blob_client = blob_service_client.get_blob_client(container=container_name, blob=blob_name)
         blob_client.upload_blob(blob_content, overwrite=True)
 
-        # Create ticket object
+        # Create ticket object with timestamp
         ticket = {
             "id": str(uuid.uuid4()),
             "title": title,
             "email": email,
             "category": category,
             "description": description,
-            "status": "New"
+            "status": "Open",
+            "timestamp": datetime.datetime.now().isoformat() + "Z"
         }
 
         # Store to Cosmos DB
@@ -70,11 +96,12 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         container = db.get_container_client("Tickets")
         container.create_item(body=ticket)
 
-        message = Mail (
+        # Send email notification
+        message = Mail(
             from_email='kojita7073@baxima.com',
             to_emails=email,
             subject='Your ticket has been received',
-           html_content=f"""
+            html_content=f"""
                 <p>Hello,</p>
                 <p>Thank you for contacting QuickAid. Your ticket has been received with the following details:</p>
                 <ul>
@@ -86,8 +113,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                 <p>We will get back to you shortly.</p>
                 <p>Regards,<br>QuickAid Support Team</p>
             """
-
-            )
+        )
         
         try:
             sg = SendGridAPIClient(sendgrid_key)
@@ -96,14 +122,27 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         except Exception as email_error:
             logging.error(f"❌ Failed to send email: {str(email_error)}")
                 
-                
-        return func.HttpResponse(json.dumps({
-                "message": "Ticket submitted",
+        return func.HttpResponse(
+            json.dumps({
+                "message": "Ticket submitted successfully",
                 "id": ticket["id"]
-            }), status_code=200, mimetype="application/json")
+            }),
+            status_code=200,
+            headers=headers,
+            mimetype="application/json"
+        )
 
     except Exception as e:
-         logging.error("❌ An exception occurred during function execution:")
-         logging.error(f"Error occurred: {str(e)}") 
-    logging.error(traceback.format_exc())  # Full stack trace
-    return func.HttpResponse(f"Internal Server Error: {str(e)}", status_code=500)
+        logging.error("❌ An exception occurred during function execution:")
+        logging.error(f"Error occurred: {str(e)}") 
+        logging.error(traceback.format_exc())  # Full stack trace
+        
+        return func.HttpResponse(
+            json.dumps({
+                "error": "Internal Server Error",
+                "details": str(e)
+            }),
+            status_code=500,
+            headers=headers,
+            mimetype="application/json"
+        )
